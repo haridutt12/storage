@@ -25,17 +25,17 @@ func (e *BoltStore) Get(key string) ([]byte, error) {
 	return v, err
 }
 
-//SaveKey puts key/val in boltdb
-func (e *BoltStore) SaveKey(key string, val []byte) error {
-	return e.db.Update(func(tx *bolt.Tx) error {
+//Put  puts key/val in boltdb
+func (e *BoltStore) Put(key string, val []byte) {
+	_ := e.db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket(e.bucket)
-		return b.Put([]byte(key), val)
+		_ = b.Put([]byte(key), val)
 	})
 }
 
-// DeleteKeys is actually DeleteBucket when in BoltDB
-func (e *BoltStore) DeleteKeys(prefix string) error {
-	return e.db.Update(func(tx *bolt.Tx) error {
-		return tx.DeleteBucket([]byte(prefix))
+// Delete is actually DeleteBucket when in BoltDB
+func (e *BoltStore) Delete(prefix string) {
+	_ := e.db.Update(func(tx *bolt.Tx) error {
+		_ = tx.DeleteBucket([]byte(prefix))
 	})
 }
