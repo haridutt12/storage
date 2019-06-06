@@ -27,7 +27,7 @@ func TestStorer(t *testing.T) {
 
 	})
 
-	t.Run("Should return error for non existing key", func(t *testing.T) {
+	t.Run("Should return NULL for non existing key", func(t *testing.T) {
 
 		for _, table := range tables {
 			m.Put(table.x, table.y)
@@ -37,7 +37,7 @@ func TestStorer(t *testing.T) {
 
 	})
 
-	t.Run("Should return an error on non-existing key", func(t *testing.T) {
+	t.Run("Should return NULL string when deleting non-existing key ", func(t *testing.T) {
 
 		for _, table := range tables {
 			m.Put(table.x, table.y)
@@ -55,6 +55,7 @@ func TestStorer(t *testing.T) {
 			m.Delete(table.x)
 			val, _ := m.Get(table.x)
 			assert.Nil(t, val)
+
 		}
 
 	})
